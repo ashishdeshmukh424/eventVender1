@@ -41,7 +41,7 @@
       "ssh_options": [
         "StrictHostKeyChecking=no",
         "PasswordAuthentication=no",
-        "ForwardAgent=yes"
+        "ForwardAgent=no"
       ],
       "post-deploy": "npm install && sh obfuscate.sh && npm run build && pm2 startOrRestart ecosystem.json --env prod && pm2 save"
     },
@@ -54,7 +54,7 @@
       "ssh_options": [
         "StrictHostKeyChecking=no",
         "PasswordAuthentication=no",
-        "ForwardAgent=yes"
+        "ForwardAgent=no"
       ],
       "post-deploy": "export NODE_ENV=qa && sudo npm install && sudo npm run build && sudo pm2 startOrRestart ecosystem.json --env qa && sudo pm2 save"
     },
@@ -67,7 +67,7 @@
       "ssh_options": [
         "StrictHostKeyChecking=no",
         "PasswordAuthentication=no",
-        "ForwardAgent=yes"
+        "ForwardAgent=no"
       ],
       "post-deploy": "export NODE_ENV=training && sudo npm install && sudo npm run build && sudo pm2 startOrRestart ecosystem.json --env training && sudo pm2 save"
     }
