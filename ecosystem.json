@@ -1,0 +1,75 @@
+{
+  "apps": [
+    {
+      "name": "EventHandler",
+      "script": "./build/server.js",
+      "max_memory_restart": "300M",
+      "env_qa": {
+        "NODE_ENV": "qa"
+      },
+      "env_training": {
+        "NODE_ENV": "training"
+      },
+      "env_production": {
+        "NODE_ENV": "prod"
+      },
+      "env_prod": {
+        "NODE_ENV": "prod"
+      }
+    }
+  ],
+  "deploy": {
+    "prod": {
+      "user": "root",
+      "host": "localhost",
+      "ref": "origin/master",
+      "repo": "eventVender1",
+      "path": "/eventVender1",
+      "ssh_options": [
+        "StrictHostKeyChecking=no",
+        "PasswordAuthentication=no",
+        "ForwardAgent=no"
+      ],
+      "post-deploy": "npm install && sh obfuscate.sh && npm run build && pm2 startOrRestart ecosystem.json --env prod && pm2 save"
+    },
+    "production": {
+      "user": "root",
+      "host": "localhost",
+      "ref": "origin/master",
+      "repo": "https://github.com/ashishdeshmukh424/",
+      "path": "/eventVender1",
+      "ssh_options": [
+        "StrictHostKeyChecking=no",
+        "PasswordAuthentication=no",
+        "ForwardAgent=yes"
+      ],
+      "post-deploy": "npm install && sh obfuscate.sh && npm run build && pm2 startOrRestart ecosystem.json --env prod && pm2 save"
+    },
+    "qa": {
+      "user": "root",
+      "host": "localhost",
+      "ref": "origin/qa",
+      "repo": "eventVender1",
+      "path": "/eventVender1",
+      "ssh_options": [
+        "StrictHostKeyChecking=no",
+        "PasswordAuthentication=no",
+        "ForwardAgent=yes"
+      ],
+      "post-deploy": "export NODE_ENV=qa && sudo npm install && sudo npm run build && sudo pm2 startOrRestart ecosystem.json --env qa && sudo pm2 save"
+    },
+    "training": {
+      "user": "root",
+      "host": "localhost",
+      "ref": "origin/master",
+      "repo": "eventVender1",
+      "path": "/eventVender1",
+      "ssh_options": [
+        "StrictHostKeyChecking=no",
+        "PasswordAuthentication=no",
+        "ForwardAgent=yes"
+      ],
+      "post-deploy": "export NODE_ENV=training && sudo npm install && sudo npm run build && sudo pm2 startOrRestart ecosystem.json --env training && sudo pm2 save"
+    }
+  }
+}
