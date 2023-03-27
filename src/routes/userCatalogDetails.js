@@ -6,13 +6,13 @@ import { ErrorResponse, FailureResponse, SuccessResponse, getResponse } from '..
 
 const path = require('path');
 
-export const createUserLocationDetails = () => {
+export const createUserCatalogDetails = () => {
   const router = koaRouter();
 
   router.get('/', async (ctx) => {
     const transaction = await database.sequelize.transaction();
 
-    const response = await database.UserLocationDetails.getAll();
+    const response = await database.UserCatalogDetails.getAll(ctx.request.body.userId);
     await transaction.commit();
     const resp = new SuccessResponse(response);
     ctx.status = resp.status;
@@ -22,22 +22,21 @@ export const createUserLocationDetails = () => {
 
 
   router.post('/', async (ctx) => {
-    console.log("ctx.request.body", ctx.request.body);
     const transaction = await database.sequelize.transaction();
 
-    const response = await database.UserLocationDetails.createNew(ctx.request.body);
+    const response = await database.UserCatalogDetails.createNew(ctx.request.body);
     await transaction.commit();
     const resp = new SuccessResponse(response);
     ctx.status = resp.status;
     ctx.body = resp;
   });
 
-  router.delete('/:userId', async (ctx) => {
-    const response = await userActions.deleteUser(ctx.request.body.userId, ctx.request.body.userId);
+  // router.delete('/:userId', async (ctx) => {
+  //   const response = await userActions.deleteUser(ctx.request.body.userId, ctx.request.body.userId);
 
-    ctx.status = response.status;
-    ctx.body = response;
-  });
+  //   ctx.status = response.status;
+  //   ctx.body = response;
+  // });
 
 
   return router;
@@ -45,7 +44,7 @@ export const createUserLocationDetails = () => {
 
 
 
-const storeServiceRouter = createUserLocationDetails();
+const storeServiceRouter = createUserCatalogDetails();
 export default compose([
   storeServiceRouter.routes(),
   storeServiceRouter.allowedMethods(),

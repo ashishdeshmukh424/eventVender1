@@ -6,13 +6,13 @@ import { ErrorResponse, FailureResponse, SuccessResponse, getResponse } from '..
 
 const path = require('path');
 
-export const createUserLocationDetails = () => {
+export const createUserBankDetails = () => {
   const router = koaRouter();
 
   router.get('/', async (ctx) => {
     const transaction = await database.sequelize.transaction();
 
-    const response = await database.UserLocationDetails.getAll();
+    const response = await database.UserBankDetails.getAll();
     await transaction.commit();
     const resp = new SuccessResponse(response);
     ctx.status = resp.status;
@@ -25,9 +25,10 @@ export const createUserLocationDetails = () => {
     console.log("ctx.request.body", ctx.request.body);
     const transaction = await database.sequelize.transaction();
 
-    const response = await database.UserLocationDetails.createNew(ctx.request.body);
+    const response = await database.UserBankDetails.createNew(ctx.request.body);
     await transaction.commit();
     const resp = new SuccessResponse(response);
+    console.log('🚀 ^~^ - router.post - resp:', resp)
     ctx.status = resp.status;
     ctx.body = resp;
   });
@@ -45,7 +46,7 @@ export const createUserLocationDetails = () => {
 
 
 
-const storeServiceRouter = createUserLocationDetails();
+const storeServiceRouter = createUserBankDetails();
 export default compose([
   storeServiceRouter.routes(),
   storeServiceRouter.allowedMethods(),

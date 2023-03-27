@@ -7,6 +7,8 @@ import mount from 'koa-mount';
 import config from './../config';
 import users from '../routes/users';
 import userLocationDetails from '../routes/userLocationDetails';
+import userBankDetails from '../routes/userBankDetails';
+import userCatalogDetails from '../routes/userCatalogDetails';
 
 // import auth from '../routes/auth';
 
@@ -42,6 +44,10 @@ const api = {
       .use(koaBody({ formLimit: limit, jsonLimit: limit, textLimit: limit }))
       .use(mount(`/${basePath}/users`, users))
       .use(mount(`/${basePath}/userLocationDetails`, userLocationDetails))
+      .use(mount(`/${basePath}/userBankDetails`, userBankDetails))
+      .use(mount(`/${basePath}/userCatalogDetails`, userCatalogDetails))
+
+
       .listen(port, bindAddress);
   },
 };

@@ -11,7 +11,7 @@ export default (sequelize, DataTypes) => {
     {
       images: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
         // unique: true,
       },
       hotelName: {
@@ -86,14 +86,24 @@ export default (sequelize, DataTypes) => {
     });
   };
 
-  UserCatalogDetails.getAll = async (includePassword) => {
+  UserCatalogDetails.getAll = async (data) => {
     return UserCatalogDetails.findAll({
+      where:{
+        userId:data
+      }
     });
   };
 
   UserCatalogDetails.getOne = async (identifiers) => {
     return UserCatalogDetails.findOne({
       where: identifiers,
+    });
+  };
+  
+  UserCatalogDetails.createNew = async (input, transaction) => {
+    console.log('🚀 ^~^ - UserCatalogDetails.createNew= - input:', input);
+    return UserCatalogDetails.create({ ...input }, {
+      transaction,
     });
   };
   return UserCatalogDetails;

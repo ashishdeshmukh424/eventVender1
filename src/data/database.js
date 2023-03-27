@@ -27,7 +27,7 @@ const sequelize = new Sequelize(database, username, password, {
   port,
   dialect,
   operatorsAliases: false,
-  timezone: '+02:00',
+  timezone: '+05:30',
   // FIXME:
   dialectOptions: {
     // for reading data from db and appyling the correct time zone

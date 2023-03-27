@@ -60,5 +60,12 @@ export default (sequelize, DataTypes) => {
       where: identifiers,
     });
   };
+
+  UserBankDetails.createNew = async (input, transaction) => {
+    return UserBankDetails.create({ ...input }, {
+      transaction,
+    });
+  };
+
   return UserBankDetails;
 };
