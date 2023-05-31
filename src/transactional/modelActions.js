@@ -77,7 +77,6 @@ const modelActions = {
   doesExistUniqueCode: async (model, identifiers, returnRawResult = false) => {
     try {
       const result = await database[model].doesExistUniqueCode(identifiers);
-      console.log('🚀 ^~^ - doesExistUniqueCode: - result:', result);
       return returnRawResult ? result : new InternalResponse(true, result);
     } catch (exception) {
       errorHandlers.throwException(`${model.toString()}-doesExistUniqueCode`, errors.DATABASE_ERROR, exception, `Identifier: ${JSON.stringify(identifiers)}`);
@@ -96,7 +95,6 @@ const modelActions = {
     try {
       // const userHasPermission = await hasPermission(id, requiredPermission);
       const userHasPermission = true;
-      console.log('🚀 ^~^ - input:', input);
 
       if (userHasPermission) {
         const result = await database[model].createNew(input);

@@ -6,3 +6,5 @@ api.initApi();
 
 // Setup DB connection and import default data
 db.initDb();
+
+// service to read mail with static id

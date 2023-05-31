@@ -1,16 +1,14 @@
 import Sequelize from 'sequelize';
 
-import users from './models/users/user';
-import userOTPDetails from './models/users/userOTPDetails';
-import userBankDetails from './models/users/userBankDetails';
-import userGSTDetails from './models/users/userGSTDetails';
-import userLocationDetails from './models/users/userLocationDetails';
-import userSupplierDetails from './models/users/userSupplierDetails';
-import catalogSubcategory from './models/catalog/catalogSubcategory';
-import userCatalogDetails from './models/catalog/userCatalogDetails';
-import catalogCategory from './models/catalog/catalogCategory';
-import availableServices from './models/availableServices/availableServices';
+import MstUsers from './models/MstUsers/MstUsers';
+import logS1 from './models/logS1/logS1';
+import transactions from './models/transactions/transactions';
+import UserTokens from './models/userToken/userToken';
+import mstBankEmails from './models/mstBankEmails/mstBankEmails';
+import mstBanks from './models/mstBank/mstBanks';
 import config from './dbConfig';
+import trnAccounts from './models/trnAccounts/trnAccounts';
+import MstAccountTypes from './models/MstAccountTypes/MstAccountTypes';
 
 const {
   host,
@@ -67,18 +65,16 @@ const db = {
 
 // #region USERS
 
-db.Users = sequelize.import('users', users);
-db.UserOTPDetails = sequelize.import('userOTPDetails', userOTPDetails);
-db.UserBankDetails = sequelize.import('userBankDetails', userBankDetails);
-db.UserGSTDetails = sequelize.import('userGSTDetails', userGSTDetails);
-db.UserLocationDetails = sequelize.import('userLocationDetails', userLocationDetails);
-db.UserSupplierDetails = sequelize.import('userSupplierDetails', userSupplierDetails);
+db.Transactions = sequelize.import('transactions', transactions);
+db.TrnAccounts = sequelize.import('trnAccounts', trnAccounts);
+db.MstAccountTypes = sequelize.import('MstAccountTypes', MstAccountTypes);
+db.UserTokens = sequelize.import('UserTokens', UserTokens);
+db.LogS1 = sequelize.import('logS1', logS1);
+db.MstUsers = sequelize.import('MstUsers', MstUsers);
+db.MstBankEmails = sequelize.import('mstBankEmails', mstBankEmails);
+db.MstBanks = sequelize.import('mstBanks', mstBanks);
 
-db.CatalogCategory = sequelize.import('catalogCategory', catalogCategory);
-db.CatalogSubcategory = sequelize.import('catalogSubcategory', catalogSubcategory);
-db.UserCatalogDetails = sequelize.import('userCatalogDetails', userCatalogDetails);
 
-db.AvailableServices = sequelize.import('availableServices', availableServices);
 
 
 // #end user activity audit

@@ -8,16 +8,16 @@ const decrypt = (text) => {
 
 customEnv.env(process.env.NODE_ENV);
 
+// developer db
 const config = {
+  username: 'postgres',
   host: 'localhost',
-  port: '3306',
-  database: 'shivansh',
-  dialect: 'mysql',
-  username: 'root',
+  database: 'ART_3rd',
   password: 'Winjit@1234',
+  port: 5432,
+  dialect: 'postgres',
   seederStorage: 'sequelize',
-  operatorsAliases: false,
-  sequelizeLogsEnabled: false, // (process.env.SEQUELIZE_LOGS_ENABLED && JSON.parse(decrypt(process.env.SEQUELIZE_LOGS_ENABLED))),
+  sequelizeLogsEnabled: false,
 };
 
 

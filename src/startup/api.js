@@ -3,25 +3,13 @@ import koaBody from 'koa-bodyparser';
 import cors from 'koa-cors';
 import helmet from 'koa-helmet';
 import mount from 'koa-mount';
-// import { swaggerDoc, apiSpec } from 'swagger-json';
 import config from './../config';
 import users from '../routes/users';
-import userLocationDetails from '../routes/userLocationDetails';
-import userBankDetails from '../routes/userBankDetails';
-import userCatalogDetails from '../routes/userCatalogDetails';
-
-// import auth from '../routes/auth';
-
+import fetchEmail from '../routes/fetchEmail';
 
 
 const { basePath, port, bindAddress, sessionSecret } = config.webServer;
 console.log('🚀 ^~^ - port:', port);
-const swStats = require('swagger-stats');
-const e2k = require('express-to-koa');
-const { ui, validate } = require('swagger2-koa');
-const swagger = require('swagger2');
-
-// const swaggerDocument = swagger.loadDocumentSync('swagger.json');
 
 const app = new Koa();
 
@@ -33,7 +21,6 @@ const options = {
 };
 
 const limit = '10mb';
-// app.use(e2k(swStats.getMiddleware({ swaggerSpec: swaggerDoc })));
 const api = {
   async initApi() {
     app.proxy = true;
@@ -42,15 +29,11 @@ const api = {
       .use(cors(options))
       .use(helmet())
       .use(koaBody({ formLimit: limit, jsonLimit: limit, textLimit: limit }))
-      .use(mount(`/${basePath}/users`, users))
-      .use(mount(`/${basePath}/userLocationDetails`, userLocationDetails))
-      .use(mount(`/${basePath}/userBankDetails`, userBankDetails))
-      .use(mount(`/${basePath}/userCatalogDetails`, userCatalogDetails))
-
+      // .use(mount(`/${basePath}/users`, users))
+      .use(mount(`/${basePath}/fetchEmail`, fetchEmail))
 
       .listen(port, bindAddress);
   },
 };
-// console.log('port===>', port);
 
 export default api;

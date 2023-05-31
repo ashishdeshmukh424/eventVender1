@@ -14,7 +14,6 @@ const userActions = {
   getAllUsers: async (query) => {
     try {
       const response = await database[USERS].getAllByPaginated({ isDeleted: false }, null);
-      console.log('🚀 ^~^ - getAllUsers: - response:', response);
       // const encryptUser = encrypt(JSON.stringify(response));
 
       return new SuccessResponse(response);
@@ -117,10 +116,8 @@ const userActions = {
 
   // ///////
   getUsersLogin: async (email) => {
-    console.log('🚀 ^~^ - getUsersLogin: - email:', email);
     try {
       const user = await database.Users.getOne(email);
-      console.log('🚀 ^~^ - getUsersLogin: - user:', user);
       // const encryptUser = encrypt(JSON.stringify(user));
 
       if (!valueValidators.hasValue(user)) {
@@ -155,7 +152,6 @@ const userActions = {
       //   return new FailureResponse(errors.USER_ALREADY_EXISTS);
       // }
 
-      console.log('🚀 ^~^ - createUser: - newUserDetails:', newUserDetails);
 
       const response = await modelActions.create(USERS, newUserDetails);
       const encryptUser = encrypt(JSON.stringify(response));
